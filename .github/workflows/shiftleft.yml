@@ -38,8 +38,11 @@ jobs:
         
     - name: Create status check
       run: |
-        URL="https://www.shiftleft.io/violationlist/shiftleft-java-demo?apps=shiftleft-java-demo&isApp=1"
-        GH_CHECK_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/check-runs"
-        curl -XPOST $GH_CHECK_URL -H "Authorization: Token ${GITHUB_TOKEN}" -H "accept: application/vnd.github.antiope-preview+json" -H "Content-Type: application/json" -d "{\"name\": \"ShiftLeft NextGen Static Analysis\", \"head_sha\": \"${GITHUB_REF}\", \"external_id\": \"shiftleft-java-demo\", \"details_url\": \"${URL}\", \"status\": \"completed\", \"conclusion\": \"action_required\", \"output\": {\"title\": \"ShiftLeft NextGen Static Analysis Findings\", \"summary\": \"Visit ${URL} for the findings\"}}"
+        sh shiftleft-pr-check.sh
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        GITHUB_REPO: "${{ github.repository }}"
+        GITHUB_SHA: "${{ github.sha }}"
+        GITHUB_REF: "${{ github.ref }}"
+        SHIFTLEFT_ORG_ID: ${{ secrets.SHIFTLEFT_ORG_ID }}
+        SHIFTLEFT_API_TOKEN: ${{ secrets.SHIFTLEFT_API_TOKEN }}
