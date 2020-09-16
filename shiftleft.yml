@@ -1,0 +1,11 @@
+source:
+  branch: master
+build_rules:
+  - id: build-rule-identifier
+    finding_types:
+      - vuln
+    severity:
+      - critical
+    type:
+      - SQL Injection
+      - Sensitive Data Leak
