@@ -1,6 +1,7 @@
 variables:
 - group: shiftleft-token
 
+
 trigger:
 - master
 - feature/*
